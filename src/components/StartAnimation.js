@@ -1,43 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { gsap, TweenMax } from 'gsap';
+import { gsap, TweenMax, TimelineMax } from 'gsap';
 
 function StartAnimation({ goToPage }) {
   const [stage_1, setStage_1] = useState();
 
   useEffect(() => {
     setStage_1(true);
-    const onReverseComplete = () => {
-      setStage_1(false);
-      console.log('false!!');
+    const ShapesData = [{}];
+    const GetShapeData = () => {
+      const svg = document.querySelectorAll('svg');
+      svg.forEach(function (el, i) {
+        let path = el.querySelectorAll('path');
+
+        path.forEach(function (pt) {
+          ShapesData.push({
+            id: pt.id,
+            d: pt.getAttribute('d'),
+            fill: pt.getAttribute('fill'),
+          });
+        });
+      });
     };
+    GetShapeData();
+    console.log(ShapesData);
+    const tl = gsap.timeline({ delay: 0.5 });
 
-    const tl = gsap.timeline({
-      repeat: 0,
-      repeatDelay: 0,
-      onReverseComplete: onReverseComplete,
-    });
-
-    tl.to('#Flap_1, #Flap_5', {
-      x: 50,
-      y: -100,
-      transform:
-        'matrix3d( 0.641, -0.454, -0.695, 0, 0.454, 0.459, 0.857, 0, 0.695, -0.857, 0.37, 0, 0, 0, 0, 1 )',
-      duration: 1,
-    });
-
-    tl.to('#Flap_1, #Flap_5', {
-      y: -100,
-      y: -90,
-      repeat: 1,
-      duration: 1,
-      yoyo: true,
-    });
-
-    tl.reverse(0);
-
-    // gsap.to('#Flap_1', { x: 250, duration: 4 });
-    // gsap.to('#Flap_2', { x: -250, duration: 4 });
+    tl.to(`#${ShapesData[1].id}`, { x: 200, duration: 4 });
   }, []);
 
   return (
@@ -53,7 +42,7 @@ function StartAnimation({ goToPage }) {
         <g transform='translate(-.28 .19)'>
           <g id='Shark' transform='translate(.03 -1.13)'>
             <path
-              id={stage_1 ? 'Flap_1 stage-1' : 'Flap_1'}
+              id='Flap_1'
               d='M325.06 234.36l59.23-34.81-8.86 45.18-50.37-10.37z'
               fill='#0b0b0d'
             />
