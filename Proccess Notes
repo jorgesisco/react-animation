@@ -1,0 +1,36 @@
+1 - After npx create-react-app ProjectName
+
+2 - Installed some dependencies:
+        - npm install react-router-dom
+        - npm install gsap (This is the greensock animation library)
+        - npm styled-components (lets you add the css style in the same js folder my setting variables for the tag names)
+
+        E.G (styled components):
+  
+          Regular HTML
+            <div>
+                <img src='' alt=''/>
+            </div>
+          
+          HTML with styled components
+
+            <Container>
+                <Image src='' alt=''/>
+            </Container>
+
+            const Container = styled.div`
+            Here you add the css code :)
+            `;
+
+            const Image = styled.img``;
+
+3 - Delete all the code in app.css to add:
+
+        * {
+    margin: 0;
+        }
+
+4 - I created Animation Component to import to App.js
+
+5 - In the StartAnimation.js I added the Container (<div></div>) and inside
+    I placed the svg code in the StartAnimation component.
